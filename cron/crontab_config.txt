@@ -1,0 +1,103 @@
+# Configuración de Cron Jobs para el Sistema de Recordatorios
+# Travel Mayan World - Core tasks
+#
+# Instrucciones de instalación:
+# 1. Abrir terminal como root o usuario con permisos sudo
+# 2. Ejecutar: crontab -e
+# 3. Copiar las líneas de abajo (sin los comentarios de instalación)
+# 4. Ajustar las rutas según tu instalación
+# 5. Guardar y salir del editor
+#
+# Para verificar que están activos: crontab -l
+
+# ============================================================================
+# RECORDATORIOS PRINCIPALES - Cada 15 minutos
+# ============================================================================
+# Procesa recordatorios pendientes de pagos RNPL y reviews
+*/15 * * * * /usr/bin/php /path/to/travel-agency-mvp/cron/process_reminders.php >> /var/log/travel-agency/reminders.log 2>&1
+
+# ============================================================================
+# TAREAS HORARIAS - Cada hora en punto
+# ============================================================================
+# Genera invitaciones de review para tours completados (ejecuta a las :00 de cada hora)
+0 * * * * /usr/bin/php /path/to/travel-agency-mvp/cron/generate_review_invitations.php >> /var/log/travel-agency/reviews.log 2>&1
+
+# ============================================================================
+# TAREAS CADA 6 HORAS - Programar recordatorios RNPL y procesar wishlist
+# ============================================================================
+# Programa recordatorios para pagos RNPL próximos a vencer (00:00, 06:00, 12:00, 18:00)
+0 */6 * * * /usr/bin/php /path/to/travel-agency-mvp/cron/schedule_rnpl_reminders.php >> /var/log/travel-agency/rnpl.log 2>&1
+
+# Procesa cambios de precio y notificaciones de wishlist (00:30, 06:30, 12:30, 18:30)
+30 */6 * * * /usr/bin/php /path/to/travel-agency-mvp/cron/process_wishlist_updates.php >> /var/log/travel-agency/wishlist.log 2>&1
+
+# ============================================================================
+# TAREAS DIARIAS - Mantenimiento y limpieza
+# ============================================================================
+# Limpieza de recordatorios antiguos y estadísticas (2:30 AM todos los días)
+30 2 * * * /usr/bin/php /path/to/travel-agency-mvp/cron/daily_cleanup.php >> /var/log/travel-agency/cleanup.log 2>&1
+
+# Respaldar logs de recordatorios (3:00 AM todos los días)
+0 3 * * * /bin/gzip /var/log/travel-agency/reminders-$(date -d 'yesterday' +\%Y-\%m-\%d).log 2>/dev/null
+
+# ============================================================================
+# TAREAS SEMANALES - Reportes y análisis
+# ============================================================================
+# Generar reporte semanal de recordatorios (Lunes a las 8:00 AM)
+0 8 * * 1 /usr/bin/php /path/to/travel-agency-mvp/cron/weekly_report.php >> /var/log/travel-agency/reports.log 2>&1
+
+# ============================================================================
+# TAREAS DE MONITOREO - Verificar salud del sistema
+# ============================================================================
+# Verificar que el engine está funcionando correctamente (cada 30 minutos)
+*/30 * * * * /usr/bin/php /path/to/travel-agency-mvp/cron/health_check.php >> /var/log/travel-agency/health.log 2>&1
+
+# ============================================================================
+# CONFIGURACIÓN DE VARIABLES DE ENTORNO
+# ============================================================================
+# Importante: Asegurar que estas variables estén configuradas
+PATH=/usr/local/bin:/usr/bin:/bin
+MAILTO=admin@mayanworldtravelagency.com
+TZ=America/Guatemala
+
+# ============================================================================
+# EJEMPLO DE CONFIGURACIÓN ALTERNATIVA PARA DESARROLLO
+# ============================================================================
+# Para entornos de desarrollo, puedes usar intervalos más frecuentes:
+#
+# # Cada 5 minutos (solo desarrollo)
+# */5 * * * * /usr/bin/php /path/to/travel-agency-mvp/cron/process_reminders.php >> /tmp/reminders_dev.log 2>&1
+#
+# # Cada 10 minutos para testing
+# */10 * * * * /usr/bin/php /path/to/travel-agency-mvp/cron/test_reminders.php >> /tmp/test_reminders.log 2>&1
+
+# ============================================================================
+# NOTAS IMPORTANTES
+# ============================================================================
+# 1. Ajustar las rutas completas según tu instalación
+# 2. Crear los directorios de logs: mkdir -p /var/log/travel-agency/
+# 3. Asegurar permisos de escritura: chmod 755 /var/log/travel-agency/
+# 4. Verificar que PHP tenga permisos para ejecutar los scripts
+# 5. Monitorear los logs regularmente para detectar errores
+# 6. En producción, considerar usar un sistema de monitoreo como Nagios o Zabbix
+#
+# Para debugging, puedes ejecutar manualmente:
+# php /path/to/travel-agency-mvp/cron/process_reminders.php
+#
+# Para ver logs en tiempo real:
+# tail -f /var/log/travel-agency/reminders.log
+
+# ============================================================================
+# CONFIGURACIÓN DE RESPALDO (BACKUP)
+# ============================================================================
+# Respaldar base de datos diariamente a las 1:00 AM
+0 1 * * * /usr/bin/mysqldump -u backup_user -p'backup_password' travel_mvp | gzip > /backups/travel_mvp_$(date +\%Y\%m\%d).sql.gz
+
+# Limpiar backups antiguos (mantener solo 30 días)
+0 4 * * * find /backups/ -name "travel_mvp_*.sql.gz" -mtime +30 -delete
+
+# ============================================================================
+# ALERTAS Y NOTIFICACIONES
+# ============================================================================
+# Enviar reporte de errores si hay fallos críticos (cada hora)
+0 * * * * /usr/bin/php /path/to/travel-agency-mvp/cron/error_alerting.php >> /var/log/travel-agency/alerts.log 2>&1

@@ -1,0 +1,65 @@
+@import url('tokens.css');
+
+/* ========================================
+   Legacy Standalone Styling (Phase 1 Refresh)
+   ----------------------------------------
+   These legacy views now rely on main.css for global tokens.
+   Additional accents are scoped under the `.legacy-theme` body class
+   to avoid overriding the refreshed public experience.
+   ======================================== */
+
+.legacy-theme {
+    background: var(--light-color);
+    color: var(--dark-color);
+    font-family: var(--font-family-sans);
+}
+
+.legacy-theme .card {
+    border: 1px solid rgba(13, 110, 253, 0.08);
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+    transition: var(--transition-slow);
+}
+
+.legacy-theme .card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.legacy-theme .card-header {
+    background: linear-gradient(135deg, rgba(13, 110, 253, 0.92), rgba(9, 72, 173, 0.92));
+    color: #fff;
+}
+
+.legacy-theme .badge-primary {
+    background: var(--warning-color);
+    color: #111;
+}
+
+.legacy-theme .badge-success {
+    background: var(--success-color);
+}
+
+.legacy-theme a {
+    color: var(--primary-dark);
+    text-decoration: none;
+}
+
+.legacy-theme a:hover,
+.legacy-theme a:focus-visible {
+    color: var(--primary-color);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.legacy-theme .alert-info {
+    background: rgba(13, 110, 253, 0.08);
+    border-color: rgba(13, 110, 253, 0.18);
+    color: var(--primary-dark);
+}
+
+.legacy-theme .form-control:focus,
+.legacy-theme .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+}

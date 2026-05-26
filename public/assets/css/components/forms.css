@@ -1,0 +1,190 @@
+@import url('../tokens.css');
+
+/* ========================================
+   Form System
+   ======================================== */
+
+.form-shell {
+    background: #fff;
+    border-radius: var(--border-radius-xl);
+    box-shadow: var(--shadow-sm);
+    padding: clamp(1.5rem, 2vw, 2.5rem);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.form-shell--surface {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(6px);
+}
+
+.form-shell__section {
+    padding-top: var(--space-4);
+    border-top: 1px solid #f1f3f5;
+    margin-top: var(--space-4);
+}
+
+.form-shell__section:first-of-type {
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.form-shell__title {
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-3);
+}
+
+.form-grid {
+    display: grid;
+    gap: var(--space-3);
+}
+
+.form-grid--two {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.form-grid--three {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.form-field--full {
+    grid-column: 1 / -1;
+}
+
+.form-field--inline {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.form-label {
+    font-weight: var(--font-weight-medium);
+    margin-bottom: 0;
+    color: var(--dark-color);
+}
+
+.form-hint {
+    font-size: 0.825rem;
+    color: #6c757d;
+}
+
+.form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    align-items: center;
+    justify-content: flex-end;
+    grid-column: 1 / -1;
+}
+
+@media (max-width: 576px) {
+    .form-shell {
+        padding: 1.25rem;
+    }
+
+    .form-field--inline {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .form-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ========================================
+   Stepper & Booking Visuals
+   ======================================== */
+
+.stepper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+@media (min-width: 768px) {
+    .stepper {
+        flex-direction: row;
+        align-items: center;
+    }
+}
+
+.step-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: #94a3b8;
+}
+
+.step-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    background: #e2e8f0;
+    color: #334155;
+}
+
+.step-item.active .step-circle {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: #fff;
+    box-shadow: var(--shadow-sm);
+}
+
+.step-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.step-line {
+    flex: 1;
+    height: 2px;
+    background: #e2e8f0;
+    margin: 0 var(--space-2);
+}
+
+/* Payment tiles */
+.payment-option {
+    border: 1px solid #e6eaf0;
+    border-radius: var(--border-radius-lg);
+    padding: var(--space-3);
+    background: #fff;
+    transition: var(--transition-fast);
+}
+
+.payment-option:hover {
+    background: #f8fafc;
+    border-color: #dce3ea;
+}
+
+.payment-option .form-check-input {
+    margin-top: 0.2rem;
+    margin-right: 0.5rem;
+}
+
+.payment-option .form-check-label {
+    width: 100%;
+    cursor: pointer;
+}
+
+.payment-option:has(.form-check-input:checked) {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.12);
+}
+
+.price-summary {
+    border: 1px solid #eef2f7;
+    border-radius: var(--border-radius);
+    padding: var(--space-3);
+    background: #f9fafb;
+}

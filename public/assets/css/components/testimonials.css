@@ -1,0 +1,131 @@
+/* ========================================
+   Testimonials Components
+   ======================================== */
+
+.testimonials-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.testimonial-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.testimonial-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.testimonial-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #0d6efd;
+}
+
+.testimonial-avatar-placeholder {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-rating {
+    font-size: 0.875rem;
+}
+
+.testimonial-rating i {
+    margin-right: 2px;
+}
+
+.testimonial-body {
+    flex: 1;
+    margin: 1rem 0;
+}
+
+.testimonial-text {
+    color: #495057;
+    line-height: 1.7;
+    font-size: 0.95rem;
+    font-style: italic;
+    margin: 0;
+}
+
+.testimonial-footer {
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.testimonial-source {
+    font-size: 0.875rem;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.testimonial-source i {
+    font-size: 1rem;
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.testimonial-card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Responsive */
+@media (max-width: 767.98px) {
+    .testimonial-card {
+        padding: 1.5rem;
+    }
+
+    .testimonial-avatar,
+    .testimonial-avatar-placeholder {
+        width: 50px;
+        height: 50px;
+        font-size: 1.25rem;
+    }
+
+    .testimonial-text {
+        font-size: 0.875rem;
+    }
+}
+
+/* Colores por fuente */
+.testimonial-source[data-source="google"] {
+    color: #ea4335;
+}
+
+.testimonial-source[data-source="tripadvisor"] {
+    color: #00af87;
+}
+
+.testimonial-source[data-source="facebook"] {
+    color: #1877f2;
+}

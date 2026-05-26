@@ -1,0 +1,222 @@
+@import url('../tokens.css');
+
+/* ========================================
+   Products Listing Enhancements
+   ======================================== */
+
+.view-toggle .btn-check:checked + .btn {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
+}
+
+.pagination .page-link {
+    border-radius: 6px;
+    margin: 0 2px;
+    border: 1px solid #dee2e6;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.sticky-filters {
+    position: sticky;
+    top: 64px;
+    background: #fff;
+    z-index: 1019;
+    border-bottom: 1px solid #eee;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+}
+
+.badge-lg {
+    font-size: 0.8rem;
+    padding: 0.5em 0.8em;
+    font-weight: 600;
+}
+
+.pulse-animation {
+    animation: pulse 2s infinite;
+}
+
+.availability-alert.urgent .badge {
+    box-shadow: 0 0 10px rgba(220, 53, 69, 0.3);
+}
+
+.availability-alert.available .badge {
+    box-shadow: 0 0 5px rgba(25, 135, 84, 0.2);
+}
+
+.product-card .position-absolute.badge {
+    z-index: 10;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    padding: 0.4em 0.6em;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(2px);
+    transition: transform 0.2s ease;
+}
+
+.product-card .position-absolute.badge:hover {
+    transform: scale(1.1);
+}
+
+.benefit-badges {
+    margin-bottom: 0.75rem;
+}
+
+.benefit-badge {
+    background: rgba(13, 110, 253, 0.1);
+    color: var(--primary-color);
+    padding: 0.2em 0.5em;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    border: 1px solid rgba(13, 110, 253, 0.2);
+}
+
+.benefit-badge i {
+    font-size: 0.6rem;
+    margin-right: 0.3em;
+}
+
+.physical-level-badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.35em 0.6em;
+    border-radius: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.physical-level-badge.badge-sm {
+    font-size: 0.65rem;
+    padding: 0.25em 0.5em;
+}
+
+.physical-level-badge.badge-lg {
+    font-size: 0.8rem;
+    padding: 0.5em 0.8em;
+}
+
+.physical-level-badge[data-bs-toggle="tooltip"] {
+    cursor: help;
+}
+
+.physical-level-badge:hover {
+    transform: translateY(-1px);
+}
+
+.bg-orange {
+    background-color: #fd7e14 !important;
+    color: #fff !important;
+}
+
+.physical-level-info {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.level-bar .progress-bar {
+    transition: all 0.3s ease;
+}
+
+.critical-filters-section {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 0.75rem;
+    border: 1px solid #e9ecef;
+    margin-bottom: 1rem;
+}
+
+.critical-filters-section .form-select-sm {
+    min-width: 120px;
+    border-radius: 15px;
+    border: 1px solid #ced4da;
+    background-color: #fff;
+    transition: all 0.2s ease;
+}
+
+.critical-filters-section .form-select-sm:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.critical-filters-section .form-check {
+    margin-bottom: 0;
+}
+
+.critical-filters-section .form-check-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.critical-filters-section .form-check-input:checked + .form-check-label {
+    background-color: #e7f3ff;
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.critical-filters-section .form-check-label:hover {
+    background-color: #f0f8ff;
+}
+
+.price-range-presets .btn {
+    transition: all 0.2s ease;
+}
+
+.price-range-presets .btn:hover {
+    transform: translateY(-1px);
+}
+
+.critical-filters-section .form-check-label i.text-success {
+    color: var(--success-color) !important;
+}
+
+.critical-filters-section .form-check-label i.text-primary {
+    color: var(--primary-color) !important;
+}
+
+@media (max-width: 768px) {
+    .critical-filters-section {
+        padding: 0.5rem;
+    }
+
+    .critical-filters-section .row {
+        --bs-gutter-x: 0.5rem;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        gap: 0.5rem;
+        scroll-snap-type: x mandatory;
+    }
+
+    .critical-filters-section .form-select-sm {
+        min-width: 100px;
+        font-size: 0.8rem;
+    }
+
+    .critical-filters-section .form-check-label {
+        font-size: 0.75rem;
+        padding: 0.2rem 0.4rem;
+    }
+
+    .critical-filters-section .col-auto,
+    .critical-filters-section .form-check {
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+    }
+}

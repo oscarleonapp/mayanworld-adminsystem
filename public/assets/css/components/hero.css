@@ -1,0 +1,185 @@
+@import url('../tokens.css');
+
+/* ========================================
+   Hero Components
+   ======================================== */
+
+.hero-section {
+    /* Fallback gradient si no hay imagen */
+    background:
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.18), transparent 55%),
+        linear-gradient(120deg, var(--primary-color) 0%, #1d6ed8 55%, var(--primary-dark) 100%);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 2rem 0;
+}
+
+/* Overlay oscuro sobre la imagen para mejorar legibilidad del texto */
+.hero-overlay {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.7) 0%,
+        rgba(13, 110, 253, 0.4) 50%,
+        rgba(0, 0, 0, 0.6) 100%
+    );
+    z-index: 1;
+}
+
+/* Contenido del hero sobre el overlay */
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Mejorar legibilidad del texto sobre imagen */
+.hero-section h1,
+.hero-section .lead {
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* Asegurar que los botones sean visibles */
+.hero-section .btn {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* USP Pill con mejor contraste */
+.hero-section .usp-pill {
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    display: inline-block;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" preserveAspectRatio="none"><g fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="8"><path d="M0 120c20-20 40-40 80-40s60 20 80 40"/><path d="M0 60c20-20 40-40 80-40s60 20 80 40"/></g></svg>') center/cover no-repeat;
+    opacity: 0.3;
+    z-index: 1;
+}
+
+.hero-section .display-4,
+.hero-section .display-5 {
+    font-weight: var(--font-weight-bold);
+    margin-bottom: 1.5rem;
+    animation: fadeInUp 0.8s ease;
+}
+
+.hero-section .lead {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+.hero-section .btn {
+    animation: fadeInUp 0.8s ease 0.4s both;
+}
+
+.hero-section .btn-primary {
+    box-shadow: var(--shadow);
+}
+
+.hero-section .btn-outline-light,
+.hero-section .btn-outline-white {
+    border-width: 2px;
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.hero-section .btn-outline-light:hover,
+.hero-section .btn-outline-white:hover,
+.hero-section .btn-outline-light:focus-visible,
+.hero-section .btn-outline-white:focus-visible {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.85);
+}
+
+.hero-section.bg-light,
+.hero-section.text-dark {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    color: var(--dark-color);
+}
+
+.hero-section.bg-light::before,
+.hero-section.text-dark::before {
+    opacity: 0.2;
+}
+
+.hero-section.bg-light .btn-outline-light,
+.hero-section.text-dark .btn-outline-light {
+    color: var(--primary-dark);
+    border-color: rgba(13, 110, 253, 0.28);
+}
+
+.hero-section.bg-light .btn-outline-light:hover,
+.hero-section.bg-light .btn-outline-light:focus-visible,
+.hero-section.text-dark .btn-outline-light:hover,
+.hero-section.text-dark .btn-outline-light:focus-visible {
+    color: #fff;
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.hero-section .stat-item h3 {
+    font-size: clamp(2rem, 1.5rem + 1vw, 2.75rem);
+}
+
+@media (max-width: 575.98px) {
+    .hero-section {
+        min-height: 100vh;
+        padding: 1rem 0;
+        background-attachment: scroll; /* Fixed background causa problemas en móviles */
+    }
+
+    .hero-section .display-4,
+    .hero-section .display-5 {
+        font-size: clamp(1.75rem, 1.2rem + 3vw, 2.5rem);
+    }
+
+    .hero-overlay {
+        background: linear-gradient(
+            135deg,
+            rgba(0, 0, 0, 0.8) 0%,
+            rgba(13, 110, 253, 0.5) 50%,
+            rgba(0, 0, 0, 0.7) 100%
+        );
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 100vh;
+        background-attachment: scroll;
+    }
+
+    .hero-section .text-end {
+        text-align: center !important;
+        margin-top: 1rem;
+    }
+
+    .hero-section .d-flex.gap-2.justify-content-end,
+    .hero-section .d-flex.gap-3 {
+        justify-content: center !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .hero-section {
+        padding: 3rem 0;
+    }
+}

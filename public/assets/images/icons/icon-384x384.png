@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="384" height="384">
+  <defs>
+    <linearGradient id="g384" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d6efd"/>
+      <stop offset="100%" stop-color="#6610f2"/>
+    </linearGradient>
+  </defs>
+  <rect width="384" height="384" fill="url(#g384)" rx="48"/>
+  <text x="192" y="288" font-family="Arial" font-size="128" font-weight="bold" fill="white" text-anchor="middle">✈</text>
+</svg>

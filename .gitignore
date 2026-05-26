@@ -1,0 +1,18 @@
+# Credentials & local config
+config.local.php
+
+# Logs
+debug.log
+error_log
+logs/
+
+# Composer dependencies
+vendor/
+
+# Storage & uploads (user data)
+storage/
+uploads/
+
+# OS
+.DS_Store
+Thumbs.db

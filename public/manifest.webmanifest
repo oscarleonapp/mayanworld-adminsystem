@@ -1,0 +1,241 @@
+{
+  "name": "Travel Mayan World",
+  "short_name": "TWM",
+  "description": "Descubre la magia del mundo maya con tours personalizados por Guatemala, Belice y México. Reserva online, offline-first PWA con notificaciones push.",
+  "version": "2.0.0",
+  "theme_color": "#2E8B57",
+  "background_color": "#F5F5DC",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "orientation": "any",
+  "scope": "/",
+  "start_url": "/?utm_source=pwa&utm_medium=homescreen",
+  "id": "travel-mayan-world-pwa",
+  "lang": "es-GT",
+  "dir": "ltr",
+  
+  "categories": ["travel", "tourism", "business", "lifestyle"],
+  "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7",
+  
+  "icons": [
+    {
+      "src": "/assets/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-96x96.png", 
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-128x128.png",
+      "sizes": "128x128", 
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/icons/icon-384x384.png",
+      "sizes": "384x384", 
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png", 
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/icons/maskable-icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/icons/maskable-icon-512x512.png", 
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/icons/monochrome-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "monochrome"
+    }
+  ],
+
+  "screenshots": [
+    {
+      "src": "/assets/screenshots/desktop-home.png",
+      "sizes": "1280x720", 
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Página principal con tours destacados"
+    },
+    {
+      "src": "/assets/screenshots/mobile-booking.png", 
+      "sizes": "393x852",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Proceso de reserva móvil optimizado"
+    },
+    {
+      "src": "/assets/screenshots/mobile-wishlist.png",
+      "sizes": "393x852", 
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Sistema de favoritos y notificaciones"
+    }
+  ],
+
+  "shortcuts": [
+    {
+      "name": "Explorar Tours",
+      "short_name": "Tours", 
+      "description": "Ver todos los tours disponibles",
+      "url": "/?route=tours&utm_source=shortcut",
+      "icons": [
+        {
+          "src": "/assets/icons/shortcut-tours.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Mis Reservas",
+      "short_name": "Reservas",
+      "description": "Ver mis reservas activas", 
+      "url": "/?route=booking/my-bookings&utm_source=shortcut",
+      "icons": [
+        {
+          "src": "/assets/icons/shortcut-bookings.png", 
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Wishlist",
+      "short_name": "Favoritos",
+      "description": "Tours guardados como favoritos",
+      "url": "/?route=wishlist&utm_source=shortcut", 
+      "icons": [
+        {
+          "src": "/assets/icons/shortcut-wishlist.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Chat Soporte", 
+      "short_name": "Chat",
+      "description": "Contactar con nuestro equipo",
+      "url": "/?route=chat&utm_source=shortcut",
+      "icons": [
+        {
+          "src": "/assets/icons/shortcut-chat.png",
+          "sizes": "96x96" 
+        }
+      ]
+    }
+  ],
+
+  "share_target": {
+    "action": "/share-target",
+    "method": "POST", 
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text", 
+      "url": "url",
+      "files": [
+        {
+          "name": "images",
+          "accept": ["image/*"]
+        }
+      ]
+    }
+  },
+
+  "file_handlers": [
+    {
+      "action": "/handle-itinerary",
+      "accept": {
+        "application/pdf": [".pdf"],
+        "text/plain": [".txt", ".itinerary"]
+      }
+    }
+  ],
+
+  "protocol_handlers": [
+    {
+      "protocol": "web+mayantravel",
+      "url": "/protocol-handler?type=%s"
+    }
+  ],
+
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.mayanworld.travel",
+      "id": "com.mayanworld.travel"
+    },
+    {
+      "platform": "itunes", 
+      "url": "https://apps.apple.com/app/mayan-world-travel/id123456789"
+    }
+  ],
+  "prefer_related_applications": false,
+
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  },
+
+  "handle_links": "preferred",
+
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+
+  "scope_extensions": [
+    {"origin": "https://mayanworldtravelagency.com"},
+    {"origin": "https://mayangateway.com"}
+  ],
+
+  "permissions": [
+    "notifications",
+    "geolocation", 
+    "camera",
+    "persistent-storage"
+  ],
+
+  "features": [
+    "push-messaging",
+    "background-sync", 
+    "offline-support",
+    "installable",
+    "share-target",
+    "file-handling"
+  ]
+}

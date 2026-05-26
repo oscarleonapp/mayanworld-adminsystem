@@ -1,0 +1,60 @@
+# robots.txt - Travel Agency MVP
+# Configuración de rastreo para motores de búsqueda
+
+User-agent: *
+Allow: /
+
+# Sitemaps XML
+Sitemap: http://localhost/travel-agency-mvp/public/sitemap.xml
+Sitemap: http://localhost/travel-agency-mvp/public/sitemap-blog.xml
+Sitemap: http://localhost/travel-agency-mvp/public/sitemap-tours.xml
+Sitemap: http://localhost/travel-agency-mvp/public/sitemap-pages.xml
+
+# Bloquear acceso a áreas administrativas
+Disallow: /admin/
+Disallow: /?route=admin
+Disallow: /?route=admin/*
+
+# Bloquear acceso a archivos de configuración
+Disallow: /config.local.php
+Disallow: /config.local.example.php
+Disallow: /composer.json
+Disallow: /composer.lock
+
+# Bloquear acceso a directorios del sistema
+Disallow: /vendor/
+Disallow: /sql/
+Disallow: /app/
+Disallow: /*.sql
+Disallow: /*.md
+
+# Bloquear archivos de prueba y diagnóstico
+Disallow: /test_*.php
+Disallow: /check_*.php
+Disallow: /diagnose*.php
+Disallow: /verificar*.php
+Disallow: /fix_*.php
+
+# Permitir archivos públicos esenciales
+Allow: /assets/
+Allow: /uploads/
+Allow: /public/
+
+# Crawl delay (10 segundos) para no sobrecargar el servidor
+Crawl-delay: 10
+
+# Configuración específica para Googlebot (más permisivo)
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 5
+
+# Configuración específica para Bingbot
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 10
+
+# Bloquear bots maliciosos conocidos
+User-agent: AhrefsBot
+User-agent: MJ12bot
+User-agent: SemrushBot
+Disallow: /

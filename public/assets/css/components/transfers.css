@@ -1,0 +1,175 @@
+/* ========================================
+   Transfers Components
+   ======================================== */
+
+.transfers-hero {
+    background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+}
+
+.transfers-stats {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+}
+
+.transfers-stats .stat-item h3 {
+    font-size: 2.5rem;
+    color: white;
+}
+
+.transfers-stats .stat-item p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+}
+
+/* Transfer Cards */
+.transfer-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.transfer-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.transfer-card-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.transfer-card-image img {
+    transition: transform 0.3s ease;
+}
+
+.transfer-card:hover .transfer-card-image img {
+    transform: scale(1.05);
+}
+
+.transfer-card-body {
+    padding: 1.5rem;
+}
+
+.transfer-detail-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.transfer-detail-image img {
+    display: block;
+}
+
+/* Transfer Route Display */
+.transfer-route {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px;
+}
+
+.route-point {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.route-line {
+    display: flex;
+    justify-content: center;
+    padding: 0.25rem 0;
+}
+
+.transfer-route-inline {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+/* Transfer Info */
+.transfer-info {
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    padding-top: 1rem;
+}
+
+/* Info Boxes (Detail Page) */
+.info-box {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border-left: 4px solid #0d6efd;
+}
+
+.info-box i {
+    font-size: 1.75rem;
+}
+
+/* Related Routes */
+.related-route-card {
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    transition: all 0.2s ease;
+}
+
+.related-route-card:hover {
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Filters Section */
+.filters-section {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: white;
+}
+
+/* Responsive */
+@media (max-width: 767.98px) {
+    .transfer-card-body {
+        padding: 1.25rem;
+    }
+
+    .info-box {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+
+    .transfers-hero .display-5 {
+        font-size: 1.75rem;
+    }
+
+    .transfers-stats {
+        margin-top: 1rem;
+    }
+}
+
+/* Animations */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.transfer-card {
+    animation: slideUp 0.4s ease-out;
+}
