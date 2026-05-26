@@ -1,5 +1,7 @@
 # Credentials & local config
 config.local.php
+DEPLOY.md
+*.sql
 
 # Logs
 debug.log

@@ -39,7 +39,7 @@ RedirectMatch 403 ^/(app|sql|logs|backups|storage|scripts|tests|vendor|node_modu
 # CONFIGURACIÓN DE SUBDIRECTORIO LOCAL
 # ============================================
 # Cambia 'travel-agency-mvp' si tu proyecto está en otro subdirectorio
-SetEnvIf Host .* LOCAL_SUBDIR=travel-agency-mvp
+SetEnvIf Host .* LOCAL_SUBDIR=mayanworld-adminsystem
 
 # ============================================
 # REWRITE RULES - Auto-Detección de Entorno
