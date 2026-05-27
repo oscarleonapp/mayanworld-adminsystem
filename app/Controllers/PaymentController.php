@@ -71,19 +71,21 @@ class PaymentController extends BaseController
         return $this->db->insert('reservas', [
             'codigo_reserva' => $this->bookingModel->generateBookingCode(),
             'tour_id' => $data['tour_id'],
-            'cliente_nombre' => $data['cliente_nombre'],
-            'cliente_email' => $data['cliente_email'],
-            'cliente_telefono' => $data['cliente_telefono'],
-            'cliente_pais' => $data['cliente_pais'] ?? null,
-            'fecha_tour' => $data['fecha_tour'],
+            'disponibilidad_id' => $data['disponibilidad_id'] ?? null,
+            'cliente_nombre' => $data['cliente_nombre'] ?? $data['nombre_completo'] ?? '',
+            'cliente_email' => $data['cliente_email'] ?? $data['email'] ?? '',
+            'cliente_telefono' => $data['cliente_telefono'] ?? $data['telefono'] ?? '',
+            'cliente_pais' => $data['cliente_pais'] ?? $data['pais'] ?? null,
+            'fecha_salida' => $data['fecha_salida'] ?? $data['fecha_tour'] ?? date('Y-m-d'),
+            'fecha_regreso' => $data['fecha_regreso'] ?? $data['fecha_salida'] ?? date('Y-m-d'),
             'numero_personas' => $data['numero_personas'],
             'precio_unitario' => $data['precio_unitario'],
             'precio_total' => $total,
-            'notas_especiales' => $data['notas_especiales'] ?? null,
+            'precio_final' => $total,
+            'notas_cliente' => $data['notas_adicionales'] ?? $data['notas_especiales'] ?? null,
             'estado' => 'pendiente',
             'payment_processor' => $gateway,
             'payment_status' => 'pending',
-            'fecha_reserva' => date('Y-m-d H:i:s')
         ]);
     }
 

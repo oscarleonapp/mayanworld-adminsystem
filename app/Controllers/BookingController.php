@@ -527,7 +527,7 @@ class BookingController extends BaseController
                     'redirect_url' => '?route=booking/success&id=' . $result['booking_id']
                 ]);
             } else {
-                $this->json(['success' => false, 'error' => $result['error']]);
+                $this->json(['success' => false, 'error' => $result['error'] ?? implode(', ', $result['errors'] ?? ['Error al procesar la reserva'])]);
             }
 
         } catch (Exception $e) {
@@ -545,13 +545,16 @@ class BookingController extends BaseController
         // Generar código de reserva
         $bookingCode = 'MW' . strtoupper(substr(uniqid(), -6));
         
-        // Crear datos finales de reserva
+        // Normalizar nombres de campos del checkout_data al esquema esperado por createBooking
         $finalBookingData = array_merge($checkoutData, [
             'codigo_reserva' => $bookingCode,
             'estado' => 'confirmada',
             'metodo_pago' => 'tarjeta',
             'payment_processor' => 'stripe',
-            'stripe_payment_intent_id' => 'pi_' . uniqid() // Simular payment intent ID
+            'stripe_payment_intent_id' => 'pi_' . uniqid(),
+            'cliente_nombre' => $checkoutData['cliente_nombre'] ?? $checkoutData['nombre_completo'] ?? '',
+            'cliente_email' => $checkoutData['cliente_email'] ?? $checkoutData['email'] ?? '',
+            'cliente_telefono' => $checkoutData['cliente_telefono'] ?? $checkoutData['telefono'] ?? '',
         ]);
 
         $result = $this->bookingModel->createBooking($finalBookingData);
