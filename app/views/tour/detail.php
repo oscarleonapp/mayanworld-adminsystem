@@ -1405,7 +1405,7 @@ $__gridClass = 'pdp-gallery__grid--' . min($__totalImgs, 5);
                         <!-- Personas + Hotel: compact row -->
                         <div class="bk-row-2col mb-3">
                             <div>
-                                <label class="bk-label" for="numero_personas"><?= !empty($tour['es_privado']) ? '<i class="fas fa-users me-1"></i>Grupo' : 'Personas' ?></label>
+                                <label class="bk-label" for="numero_personas"><?= !empty($tour['es_privado']) ? '<i class="fas fa-users me-1"></i>Grupo' : 'Adultos' ?></label>
                                 <select name="numero_personas" id="numero_personas" class="form-select form-select-sm" required>
                                     <?php for($i = ($tour['grupo_min'] ?? 1); $i <= min($tour['capacidad_maxima'] ?? 10, 20); $i++): ?>
                                         <option value="<?= $i ?>"><?= $i ?> pers.</option>
@@ -1419,6 +1419,62 @@ $__gridClass = 'pdp-gallery__grid--' . min($__totalImgs, 5);
                                        autocomplete="off">
                             </div>
                         </div>
+
+                        <?php if (!empty($tour['precio_nino']) && $tour['precio_nino'] > 0): ?>
+                        <?php
+                            $edadMinNino = (int)($tour['edad_min_nino'] ?? 1);
+                            $edadMaxNino = (int)($tour['edad_max_nino'] ?? 7);
+                        ?>
+                        <!-- Niños -->
+                        <div class="mb-3">
+                            <label class="bk-label" for="numero_ninos">
+                                <i class="fas fa-child me-1"></i>Niños
+                                <small class="text-muted fw-normal">(<?= $edadMinNino ?>–<?= $edadMaxNino ?> años — $<?= number_format($tour['precio_nino'], 0) ?> USD c/u)</small>
+                            </label>
+                            <select name="numero_ninos" id="numero_ninos" class="form-select form-select-sm">
+                                <?php for ($n = 0; $n <= 10; $n++): ?>
+                                <option value="<?= $n ?>"><?= $n === 0 ? 'Sin niños' : $n . ' niño' . ($n > 1 ? 's' : '') ?></option>
+                                <?php endfor; ?>
+                            </select>
+                        </div>
+                        <div id="child-ages-container" style="display:none;" class="mb-3">
+                            <label class="bk-label">Edad de cada niño</label>
+                            <div id="child-ages-inputs" class="d-flex flex-wrap gap-2"></div>
+                        </div>
+                        <script>
+                        (function(){
+                            var minAge = <?= $edadMinNino ?>, maxAge = <?= $edadMaxNino ?>;
+                            var sel = document.getElementById('numero_ninos');
+                            var container = document.getElementById('child-ages-container');
+                            var inputsDiv = document.getElementById('child-ages-inputs');
+                            function renderAgeSelects(count) {
+                                inputsDiv.innerHTML = '';
+                                container.style.display = count > 0 ? '' : 'none';
+                                for (var i = 1; i <= count; i++) {
+                                    var wrap = document.createElement('div');
+                                    wrap.style.minWidth = '110px';
+                                    var lbl = document.createElement('div');
+                                    lbl.className = 'form-text mb-1';
+                                    lbl.textContent = 'Niño ' + i;
+                                    var s = document.createElement('select');
+                                    s.name = 'edad_nino[]';
+                                    s.className = 'form-select form-select-sm';
+                                    s.required = true;
+                                    for (var a = minAge; a <= maxAge; a++) {
+                                        var opt = document.createElement('option');
+                                        opt.value = a;
+                                        opt.textContent = a + ' año' + (a > 1 ? 's' : '');
+                                        s.appendChild(opt);
+                                    }
+                                    wrap.appendChild(lbl);
+                                    wrap.appendChild(s);
+                                    inputsDiv.appendChild(wrap);
+                                }
+                            }
+                            sel.addEventListener('change', function(){ renderAgeSelects(parseInt(this.value)); });
+                        })();
+                        </script>
+                        <?php endif; ?>
                         <?php if (!empty($tour['es_privado'])): ?>
                         <div class="bk-private-calc mb-3" id="private-price-info">
                             <i class="fas fa-tag me-1"></i>
@@ -1565,33 +1621,39 @@ window.scrollToBookingForm = function() {
     const noDateAlert = document.getElementById('noDateAlert');
     const bookingActionCard = document.getElementById('bookingActionCard');
 
+    const ninosSelect = document.getElementById('numero_ninos');
+    const precioNino = <?= (!empty($tour['precio_nino']) && $tour['precio_nino'] > 0) ? (float)$tour['precio_nino'] : 0 ?>;
+
     function calculateTotal() {
         const selectedDate = fechaSelect.options[fechaSelect.selectedIndex];
         const personas = parseInt(personasSelect.value) || 1;
+        const ninos = ninosSelect ? (parseInt(ninosSelect.value) || 0) : 0;
 
         if (selectedDate && selectedDate.dataset.price && fechaSelect.value) {
             const pricePerPerson = parseFloat(selectedDate.dataset.price);
-            const total = pricePerPerson * personas;
+            const totalAdults = pricePerPerson * personas;
+            const totalNinos = precioNino * ninos;
+            const total = totalAdults + totalNinos;
 
             totalAmount.textContent = '$' + total.toLocaleString('es-GT');
-            totalBreakdown.textContent = `${personas} persona${personas > 1 ? 's' : ''} × $${pricePerPerson.toLocaleString('es-GT')}`;
+            let breakdown = `${personas} adulto${personas > 1 ? 's' : ''} × $${pricePerPerson.toLocaleString('es-GT')}`;
+            if (ninos > 0) {
+                breakdown += ` + ${ninos} niño${ninos > 1 ? 's' : ''} × $${precioNino.toLocaleString('es-GT')}`;
+            }
+            totalBreakdown.textContent = breakdown;
             totalDiv.style.display = 'block';
 
-            // Habilitar botón de reserva con efectos visuales
             bookNowBtn.disabled = false;
             bookNowBtn.classList.remove('btn-secondary');
             bookNowBtn.classList.add('btn-success');
             bookingActionCard.classList.add('ready');
             noDateAlert.style.display = 'none';
 
-            // Scroll suave al botón para que el usuario lo vea
             setTimeout(() => {
                 bookNowBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 300);
         } else {
             totalDiv.style.display = 'none';
-
-            // Deshabilitar botón de reserva
             bookNowBtn.disabled = true;
             bookNowBtn.classList.remove('btn-success');
             bookNowBtn.classList.add('btn-secondary');
@@ -1600,10 +1662,10 @@ window.scrollToBookingForm = function() {
         }
     }
 
-    // Calcular al cargar y cuando cambien los valores
     calculateTotal();
     fechaSelect.addEventListener('change', calculateTotal);
     personasSelect.addEventListener('change', calculateTotal);
+    if (ninosSelect) ninosSelect.addEventListener('change', calculateTotal);
 
 // Función para manejar el envío del formulario
 window.handleBookingSubmit = function(e) {

@@ -169,9 +169,34 @@ include __DIR__ . '/../../layouts/admin_header.php'; ?>
                         </div>
 
                         <div class="mb-3">
-                            <label for="edad_min" class="form-label">Edad Mínima</label>
+                            <label for="edad_min" class="form-label">Edad Mínima del Tour</label>
                             <input type="text" inputmode="numeric" pattern="[0-9]*" class="form-control" id="edad_min" name="edad_min"
                                    value="<?= htmlspecialchars($data['edad_min'] ?? '0') ?>">
+                            <div class="form-text">Edad mínima requerida para participar en el tour.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Rango de Edad para Niños</label>
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="flex-fill">
+                                    <select class="form-select" id="edad_min_nino" name="edad_min_nino">
+                                        <?php for ($a = 1; $a <= 12; $a++): ?>
+                                        <option value="<?= $a ?>" <?= (int)($data['edad_min_nino'] ?? 1) === $a ? 'selected' : '' ?>><?= $a ?> año<?= $a > 1 ? 's' : '' ?></option>
+                                        <?php endfor; ?>
+                                    </select>
+                                    <div class="form-text text-center">Desde</div>
+                                </div>
+                                <span class="fw-semibold text-muted">—</span>
+                                <div class="flex-fill">
+                                    <select class="form-select" id="edad_max_nino" name="edad_max_nino">
+                                        <?php for ($a = 1; $a <= 12; $a++): ?>
+                                        <option value="<?= $a ?>" <?= (int)($data['edad_max_nino'] ?? 7) === $a ? 'selected' : '' ?>><?= $a ?> años</option>
+                                        <?php endfor; ?>
+                                    </select>
+                                    <div class="form-text text-center">Hasta</div>
+                                </div>
+                            </div>
+                            <div class="form-text">Rango de edades que aplica para el precio de niño.</div>
                         </div>
 
                         <div class="mb-3">

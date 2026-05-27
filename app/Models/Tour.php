@@ -12,7 +12,7 @@ class Tour extends Model
     protected $fillable = [
         'categoria_id', 'nombre', 'descripcion', 'descripcion_corta',
         'precio', 'precio_nino', 'precio_descuento', 'duracion', 'duracion_dias', 'duracion_horas', 'incluye', 'no_incluye',
-        'itinerario', 'que_llevar', 'politicas', 'capacidad_maxima', 'edad_min', 'dificultad', 'imagen_principal',
+        'itinerario', 'que_llevar', 'politicas', 'capacidad_maxima', 'edad_min', 'edad_min_nino', 'edad_max_nino', 'dificultad', 'imagen_principal',
         'galeria', 'activo', 'destacado', 'disponible_desde', 'disponible_hasta',
         'ubicacion', 'horarios'
     ];
@@ -241,13 +241,15 @@ class Tour extends Model
             'no_incluye' => $data['no_incluye'] ?? null,
             'itinerario' => $data['itinerario'] ?? null,
             'capacidad_maxima' => !empty($data['capacidad_maxima']) ? Helpers::sanitizeInt($data['capacidad_maxima']) : 20,
+            'edad_min_nino' => !empty($data['edad_min_nino']) ? Helpers::sanitizeInt($data['edad_min_nino']) : 1,
+            'edad_max_nino' => !empty($data['edad_max_nino']) ? Helpers::sanitizeInt($data['edad_max_nino']) : 7,
             'dificultad' => $data['dificultad'] ?? 'facil',
             'imagen_principal' => $data['imagen_principal'] ?? null,
             'galeria' => $data['galeria'] ?? null,
             'activo' => isset($data['activo']) ? (bool)$data['activo'] : true,
             'destacado' => isset($data['destacado']) ? (bool)$data['destacado'] : false
         ];
-        
+
         try {
             $productId = $this->create($sanitizedData);
             return ['success' => true, 'tour_id' => $productId];
@@ -284,6 +286,8 @@ class Tour extends Model
             'no_incluye' => $data['no_incluye'] ?? null,
             'itinerario' => $data['itinerario'] ?? null,
             'capacidad_maxima' => !empty($data['capacidad_maxima']) ? Helpers::sanitizeInt($data['capacidad_maxima']) : 20,
+            'edad_min_nino' => !empty($data['edad_min_nino']) ? Helpers::sanitizeInt($data['edad_min_nino']) : ($product['edad_min_nino'] ?? 1),
+            'edad_max_nino' => !empty($data['edad_max_nino']) ? Helpers::sanitizeInt($data['edad_max_nino']) : ($product['edad_max_nino'] ?? 7),
             'dificultad' => $data['dificultad'] ?? 'facil',
             'imagen_principal' => $data['imagen_principal'] ?? $product['imagen_principal'],
             'galeria' => $data['galeria'] ?? $product['galeria'],

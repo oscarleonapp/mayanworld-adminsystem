@@ -138,6 +138,9 @@ class BookingController extends BaseController
 
         // Calcular fechas y precios
         $numeroPersonas = max(1, (int)$this->getInput('numero_personas', 1));
+        $numeroNinos = max(0, (int)$this->getInput('numero_ninos', 0));
+        $edadesNinos = $_POST['edad_nino'] ?? [];
+        $edadesNinos = array_slice(array_map('intval', (array)$edadesNinos), 0, $numeroNinos);
         $fechaSalida = $availability['fecha_salida'] ?? date('Y-m-d');
         $fechaRegreso = $availability['fecha_regreso'] ?? date('Y-m-d');
 
@@ -172,17 +175,24 @@ class BookingController extends BaseController
             $precioUnitario = (float)$availability['precio_especial'];
         }
 
+        $precioNino = (!empty($tour['precio_nino'])) ? (float)$tour['precio_nino'] : 0;
+        $totalNinos = $precioNino * $numeroNinos;
+        $totalAdultos = $precioUnitario * $numeroPersonas;
+
         $data = [
             'tour_id' => $tourId,
             'disponibilidad_id' => $availabilityId,
             'numero_personas' => $numeroPersonas,
+            'numero_niños' => $numeroNinos,
             'fecha_salida' => $fechaSalida,
             'fecha_regreso' => $fechaRegreso,
             'horario_seleccionado' => $horarioSeleccionado ?: null,
             'precio_unitario' => $precioUnitario,
-            'precio_total' => $precioUnitario * $numeroPersonas,
-            'precio_final' => $precioUnitario * $numeroPersonas,
-            'hotel_nombre' => trim($this->getInput('hotel_nombre') ?? '')
+            'precio_ninos' => $precioNino,
+            'precio_total' => $totalAdultos + $totalNinos,
+            'precio_final' => $totalAdultos + $totalNinos,
+            'hotel_nombre' => trim($this->getInput('hotel_nombre') ?? ''),
+            'niños_info' => !empty($edadesNinos) ? json_encode(array_map(fn($e) => ['edad' => $e], $edadesNinos)) : null,
         ];
 
         // Redirigir al formulario de checkout (2 pasos)
