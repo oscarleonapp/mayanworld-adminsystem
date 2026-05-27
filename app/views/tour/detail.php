@@ -1413,10 +1413,43 @@ $__gridClass = 'pdp-gallery__grid--' . min($__totalImgs, 5);
                                 </select>
                             </div>
                             <div>
-                                <label class="bk-label" for="hotel_nombre"><i class="fas fa-map-marker-alt me-1"></i>Hotel / Punto de recogida</label>
+                                <label class="bk-label" for="hotel_nombre"><i class="fas fa-map-marker-alt me-1"></i>Punto de recogida</label>
+                                <?php
+                                $hotelPickups = array_filter($meetingPoints ?? [], fn($mp) => $mp['type'] === 'hotel_pickup');
+                                $standardPoints = array_filter($meetingPoints ?? [], fn($mp) => $mp['type'] === 'standard');
+                                ?>
+                                <?php if (!empty($hotelPickups)): ?>
+                                <input type="hidden" name="meeting_point_id" id="meeting_point_id" value="">
+                                <select class="form-select form-select-sm" id="hotel_nombre" name="hotel_nombre" required>
+                                    <option value="">— Selecciona tu hotel —</option>
+                                    <?php if (!empty($standardPoints)): ?>
+                                    <optgroup label="Punto de encuentro">
+                                        <?php foreach ($standardPoints as $mp): ?>
+                                        <option value="<?= htmlspecialchars($mp['title']) ?>" data-mp-id="<?= $mp['id'] ?>">
+                                            <?= htmlspecialchars($mp['title']) ?>
+                                        </option>
+                                        <?php endforeach; ?>
+                                    </optgroup>
+                                    <?php endif; ?>
+                                    <optgroup label="Recogida en hotel">
+                                        <?php foreach ($hotelPickups as $mp): ?>
+                                        <option value="<?= htmlspecialchars($mp['title']) ?>" data-mp-id="<?= $mp['id'] ?>">
+                                            <?= htmlspecialchars($mp['title']) ?>
+                                        </option>
+                                        <?php endforeach; ?>
+                                    </optgroup>
+                                </select>
+                                <script>
+                                document.getElementById('hotel_nombre').addEventListener('change', function(){
+                                    var opt = this.options[this.selectedIndex];
+                                    document.getElementById('meeting_point_id').value = opt.dataset.mpId || '';
+                                });
+                                </script>
+                                <?php else: ?>
                                 <input type="text" class="form-control form-control-sm" id="hotel_nombre" name="hotel_nombre"
                                        placeholder="Ej: Hotel Westin, Zona 10"
                                        autocomplete="off">
+                                <?php endif; ?>
                             </div>
                         </div>
 

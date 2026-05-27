@@ -289,6 +289,16 @@ class TourController extends BaseController
                 }
             }
 
+            // Obtener puntos de encuentro asignados al tour
+            $meetingPoints = $this->db->fetchAll(
+                "SELECT mp.id, mp.title, mp.address, mp.type, mp.description
+                 FROM meeting_points mp
+                 JOIN tour_meeting_points_pivot tmp ON mp.id = tmp.meeting_point_id
+                 WHERE tmp.tour_id = :tour_id AND mp.is_active = 1
+                 ORDER BY mp.type DESC, tmp.display_order ASC, mp.title ASC",
+                ['tour_id' => $id]
+            );
+
             $this->view('tour/detail', [
                 'title' => $tour['nombre'],
                 'tour' => $tour,
@@ -297,7 +307,8 @@ class TourController extends BaseController
                 'reviews' => $reviews,
                 'category' => $category ?? ['nombre' => 'Sin categoría'],
                 'canReview' => $canReview,
-                'isAuthenticated' => $auth->isLoggedIn()
+                'isAuthenticated' => $auth->isLoggedIn(),
+                'meetingPoints' => $meetingPoints ?? [],
             ]);
 
         } catch (Exception $e) {
